@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>提炼es6-4 - To Be or To Be|Xia Zhengming`s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="一、数组的扩展1、扩展运算符(…)好比rest参数的逆运算，将一个数组转为用逗号分隔的参数序列。…[1,2,3] =&amp;gt; 1 2 3 作用主要用于函数调用123456789function push(array,...items)&amp;#123;    array.push(...items)&amp;#125;function add(x,y)&amp;#123;    return x + y&amp;#125;co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="提炼es6-4">
+<meta property="og:url" content="http://yoursite.com/2018/12/04/提炼es6-4/index.html">
+<meta property="og:site_name" content="To Be or To Be|Xia Zhengming`s Blog">
+<meta property="og:description" content="一、数组的扩展1、扩展运算符(…)好比rest参数的逆运算，将一个数组转为用逗号分隔的参数序列。…[1,2,3] =&amp;gt; 1 2 3 作用主要用于函数调用123456789function push(array,...items)&amp;#123;    array.push(...items)&amp;#125;function add(x,y)&amp;#123;    return x + y&amp;#125;co">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-14T05:49:53.801Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="提炼es6-4">
+<meta name="twitter:description" content="一、数组的扩展1、扩展运算符(…)好比rest参数的逆运算，将一个数组转为用逗号分隔的参数序列。…[1,2,3] =&amp;gt; 1 2 3 作用主要用于函数调用123456789function push(array,...items)&amp;#123;    array.push(...items)&amp;#125;function add(x,y)&amp;#123;    return x + y&amp;#125;co">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="提炼es6-4" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/images/gallery/desert.jpg" alt="提炼es6-4">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-12-04T06:13:29.000Z">2018-12-04</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    12 分钟 读完 (大约 1733 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                提炼es6-4
+            
+        </h1>
+        <div class="content">
+            <h2 id="一、数组的扩展"><a href="#一、数组的扩展" class="headerlink" title="一、数组的扩展"></a>一、数组的扩展</h2><h3 id="1、扩展运算符"><a href="#1、扩展运算符" class="headerlink" title="1、扩展运算符"></a>1、扩展运算符</h3><p>(…)好比rest参数的逆运算，将一个数组转为用逗号分隔的参数序列。<br>…[1,2,3] =&gt; 1 2 3</p>
+<p>作用主要用于函数调用<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function push(array,...items)&#123;</span><br><span class="line">    array.push(...items)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function add(x,y)&#123;</span><br><span class="line">    return x + y</span><br><span class="line">&#125;</span><br><span class="line">const numbers = [4,38]</span><br><span class="line">add(...numbers) // 42</span><br></pre></td></tr></table></figure></p>
+<p><strong>替代函数的apply方法</strong><br>前情回顾apply方法，和call方法类似，只是apply可以传arguments，而call方法必须要把参数全部列举，所以apply使用更加频繁。它们的调用apply(obj,args)，call(obj,[params,…])。其中<strong>obj</strong>为要调用该方法的对象，通常为this<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//ES5</span><br><span class="line">Math.max.apply(null,[14,3,77])</span><br><span class="line">//ES6</span><br><span class="line">Math.max(...[14,3,77])</span><br><span class="line">//等同于</span><br><span class="line">Math.max(14,3,77)</span><br></pre></td></tr></table></figure></p>
+<p><strong>应用1:数组复制</strong><br>数组是复合的数据类型，直接复制只是复制了指向了底层数据结构的指针<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//直接复制</span><br><span class="line">const arr1 = [1,2]</span><br><span class="line">const arr2 = arr1</span><br><span class="line">arr2[0] = 3</span><br><span class="line">arr1 // [3,2]</span><br><span class="line"></span><br><span class="line">//es5变通方法复制</span><br><span class="line">const arr1 = [2,3]</span><br><span class="line">const arr2 = arr1.concat() //用于连接两个或多个数组，返回一个新数组</span><br><span class="line">arr2[0] = 4</span><br><span class="line">arr1 // [2,3]</span><br><span class="line"></span><br><span class="line">//es6扩展运算符</span><br><span class="line">const a1 = [1,2]</span><br><span class="line">const a2 = [...a1]</span><br><span class="line">const [...a2] = a1</span><br></pre></td></tr></table></figure></p>
+<p><strong>应用2:合并数组</strong><br>类似于数组复制，合并数组也是一样<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//ES5的合并数组</span><br><span class="line">a1.concat(a2,a3)</span><br><span class="line">//ES6的合并数组</span><br><span class="line">[...a1,...a2,...a3]</span><br><span class="line">//不过这两种方法都是浅拷贝，在数组元素是对象时需注意</span><br><span class="line">const b1 = [&#123;foo:1&#125;]</span><br><span class="line">const b2 = [&#123;bar:2&#125;]</span><br><span class="line"></span><br><span class="line">const b3 = b1.concat(b2)</span><br><span class="line">const b4 = [...b1,...b2]</span><br><span class="line"></span><br><span class="line">b3[0] === b1[0]</span><br><span class="line">b4[0] === b1[0]</span><br><span class="line">//虽然b3,b4是用两种不同方法合并而成的新数组，但是它们的成员都是对原数组成员的引用，这就是浅拷贝。如果修改了原数组的成员，会同步反映到新数组。</span><br></pre></td></tr></table></figure></p>
+<p><strong>应用3:与解构赋值结合</strong><br>将扩展运算符用于数组赋值<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//es5</span><br><span class="line">a = list[0],rest = list.slice(1)</span><br><span class="line">//es6</span><br><span class="line">[a,...rest] = list</span><br><span class="line"></span><br><span class="line">const list = [1,2,3,4,5]</span><br><span class="line">a //1</span><br><span class="line">rest //[2,3,4,5]</span><br><span class="line"></span><br><span class="line">const list = []</span><br><span class="line">a //undefined</span><br><span class="line">rest // []</span><br><span class="line"></span><br><span class="line">const list = [&quot;foo&quot;]</span><br><span class="line">a // &quot;foo&quot;</span><br><span class="line">rest // []</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意:</strong>将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错</p>
+<h3 id="2-Array-from"><a href="#2-Array-from" class="headerlink" title="2.Array.from()"></a>2.Array.from()</h3><p>Array.from方法用于将两类对象转为真正的数组:类似数组的对象(array-like object)和可遍历(iterable)的对象(包括ES6新增的数据结构Set和Map)<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let arrayLike = &#123;</span><br><span class="line">    &apos;0&apos;:&apos;a&apos;,</span><br><span class="line">    &apos;1&apos;:&apos;b&apos;,</span><br><span class="line">    &apos;2&apos;:&apos;c&apos;,</span><br><span class="line">    length:3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//es5</span><br><span class="line">var arr1 = [].slice.call(arrayLike)</span><br><span class="line">//es6</span><br><span class="line">let arr2 = Array.from(arrayLike)</span><br></pre></td></tr></table></figure></p>
+<p>实际应用中，常见的类似数组的对象时DOM操作返回的NodeList集合，以及函数内部的arguments对象。Array.from都可以将它们转为真正的数组。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//NodeList对象</span><br><span class="line">let ps = document.querySelectorAll(&apos;p&apos;)</span><br><span class="line">Array.from(ps).filter(p =&gt; &#123;</span><br><span class="line">    return p.textContent.length &gt; 100</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//arguments对象</span><br><span class="line">function foo() &#123;</span><br><span class="line">    var args = Array.from(arguments)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而这里所谓的类数组对象，必须有length属性</p>
+<h3 id="3-Array-of"><a href="#3-Array-of" class="headerlink" title="3.Array.of()"></a>3.Array.of()</h3><p>该方法用于将一组值转换为数组。这个方法主要用于弥补数组构造函数Array()的不足。因为参数个数的不同，会导致Array()的行为有差异。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Array() // []</span><br><span class="line">Array(3) // [,,,]</span><br><span class="line">Array(3,11,8) // [3,11,8]</span><br></pre></td></tr></table></figure></p>
+<p>只有当参数个数不少于2个时，Array()才会返回由参数组成的新数组，参数个数只有一个时，实际上是指定数组的长度。</p>
+<h3 id="4-数组实例的find-和findIndex"><a href="#4-数组实例的find-和findIndex" class="headerlink" title="4.数组实例的find()和findIndex()"></a>4.数组实例的find()和findIndex()</h3><p>数组实例的find方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出<strong>第一个返回值为true</strong>的成员。如果没有符合条件的成员，则<strong>返回undefined</strong>。且它的回调函数可以接受三个参数，依次为<strong>当前的值、当前的位置和原数组</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3,4,5,6].find((val,index,arr) =&gt; val &gt; 4 &amp;&amp; index &gt; 4) //6</span><br></pre></td></tr></table></figure></p>
+<p>数组实例的findIndex方法的用法与find方法非常类似，返回<strong>第一个符合条件的数组成员的位置</strong>，如果所有成员都不符合条件，则<strong>返回-1</strong>。且它的回调函数可以接受三个参数，依次为<strong>当前的值、当前的位置和原数组</strong><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[1,5,10,15].findIndex(function(val,index,arr) &#123;</span><br><span class="line">    return val &gt; 5</span><br><span class="line">&#125;) // 2</span><br></pre></td></tr></table></figure></p>
+<p>这两个方法都可以接受第二个参数，用来绑定回调函数的this对象<br><strong>注意</strong>之前的三个参数是回调函数的参数，也就是find,findIndex的第一个参数，而这里的第二个参数是用来绑定回调函数的this对象。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//完整的写法</span><br><span class="line">const arr = [1,2,3,4,5,6]</span><br><span class="line">function f(v)&#123;</span><br><span class="line">    return v &gt; this.age</span><br><span class="line">&#125;</span><br><span class="line">let person = &#123;name:&apos;John&apos;,age:4&#125;</span><br><span class="line">arr.find(f,person) //5</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-数组实例的fill"><a href="#5-数组实例的fill" class="headerlink" title="5.数组实例的fill()"></a>5.数组实例的fill()</h3><p>fill方法使用给定值填充一个数组。该方法用于空数组的初始化非常方便，数组中已有的元素会全部抹去。fill方法还接受第二个和第三个参数，用于指定填充的起始位置和结束位置(<strong>不包括</strong>)<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;].fill(7,1,2) //[&apos;a&apos;,7,&apos;c&apos;]</span><br><span class="line">//如果填充的类型为对象，那么被赋值的是同一个内存地址的对象，而不是深拷贝对象,换句话说当其中一个改变时，其他也会跟着改变</span><br><span class="line">let arr = new Array(3).fill(&#123;name:&apos;Jack&apos;&#125;)</span><br><span class="line">arr[0].name = &quot;Ben&quot; </span><br><span class="line">arr // [&#123;name:&apos;Ben&apos;&#125;,&#123;name:&apos;Ben&apos;&#125;,&#123;name:&apos;Ben&apos;&#125;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-数组实例的entries-key-和values"><a href="#6-数组实例的entries-key-和values" class="headerlink" title="6.数组实例的entries(),key()和values()"></a>6.数组实例的entries(),key()和values()</h3><p>三个方法都是用于遍历数组的，它们都返回一个遍历器对象，可以用for…of循环进行遍历，区别是keys()是对键名的遍历、values()是对键值的遍历、entries()是对键值对的遍历。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">for(let index of [&apos;a&apos;,&apos;b&apos;,&apos;c&apos;].keys()) &#123;</span><br><span class="line">    console.log(index)</span><br><span class="line">&#125; </span><br><span class="line">// 0</span><br><span class="line">// 1</span><br><span class="line"></span><br><span class="line">for(let ele of [&apos;a&apos;,&apos;b&apos;,&apos;c&apos;].values()) &#123;</span><br><span class="line">    console.log(ele)</span><br><span class="line">&#125;</span><br><span class="line">// a</span><br><span class="line">// b</span><br><span class="line"></span><br><span class="line">for(let [index,ele] of [&apos;a&apos;,&apos;b&apos;].entries())&#123;</span><br><span class="line">    console.log(index,ele)</span><br><span class="line">&#125;</span><br><span class="line">// 0 &quot;a&quot;</span><br><span class="line">// 1 &quot;b&quot;</span><br><span class="line"></span><br><span class="line">//还可以手动调用遍历器对象的next方法，进行遍历</span><br><span class="line">let letter = [&apos;a&apos;,&apos;b&apos;,&apos;c&apos;]</span><br><span class="line">let entries = letter.entries()</span><br><span class="line">console.log(entries.next().value()) // [0,&apos;a&apos;]</span><br><span class="line">console.log(entries.next().value()) // [1,&apos;b&apos;]</span><br><span class="line">console.log(entries.next().value()) // [2,&apos;c&apos;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-数组实例的includes"><a href="#7-数组实例的includes" class="headerlink" title="7.数组实例的includes()"></a>7.数组实例的includes()</h3><p>表示某个数组是否包含给定的值，与字符串的includes方法类似，返回一个布尔值<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[12,23].includes(2) // false</span><br><span class="line">[1,2,3,NaN].includes(NaN)</span><br><span class="line">//第二个参数表述搜索的起始位置</span><br><span class="line">[1,2,3].includes(2,2) // false</span><br><span class="line">// 区别去之前使用的indexOf，缺点是不够语义化，内部用严格相等运算符(===)进行判断，所以NaN会判断错误</span><br><span class="line">arr.indexOf(2) !== -1</span><br><span class="line">[NaN].indexOf(NaN) // -1</span><br><span class="line">[NaN].includes(NaN) // true</span><br></pre></td></tr></table></figure></p>
+<p>下面代码用来检查当前环境是否支持该方法，如果不支持，部署一个简易的替代版本<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const fn = (() =&gt; </span><br><span class="line">    Array.prototype.includes</span><br><span class="line">    ? (arr,val) =&gt; arr.includes(val)</span><br><span class="line">    : (arr,val) =&gt; arr.some(el =&gt; el === val)</span><br><span class="line">)()</span><br><span class="line">fn([&apos;foo&apos;,&apos;bar&apos;],&apos;baz&apos;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="8-数组实例的flat-flatMap"><a href="#8-数组实例的flat-flatMap" class="headerlink" title="8.数组实例的flat(),flatMap()"></a>8.数组实例的flat(),flatMap()</h3><p>flat用于拉平数组，传入的参数用于选择拉平几层，默认拉平1层，返回一个新数组<br>flatMap传入回调函数，用于处理数组中的元素<strong>类似于map函数</strong>，再拉平数组</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[1,2,[3,4,[5,6]]].flat()</span><br><span class="line">// [1,2,3,4,[5,6]]</span><br><span class="line"></span><br><span class="line">[1,2,[3,4,[5,6]]].flat(2)</span><br><span class="line">// [1,2,3,4,5,6]</span><br><span class="line"></span><br><span class="line">[1,2,,3,4].flat(Infinity)</span><br><span class="line">// 会跳过空位，而且Infinity不管多少层都会转成一维数组</span><br><span class="line"></span><br><span class="line">[1,2,3,4].flatMap((x) =&gt; x*2)</span><br><span class="line">// [2,4,6,8]此时的功能类似于map函数</span><br><span class="line">[1,2,3,4].flatMap((x) =&gt; [x,x*2])</span><br><span class="line">// [1,2,2,4,3,6,4,8]先map再flat</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/12/11/浅谈Vue路由/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">浅谈Vue路由</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/12/03/提炼es6-3/">
+                <span class="level-item">提炼es6-3</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/rocket.svg" alt="不解的谜团">
+                    
+                    <p class="is-size-4 is-block">
+                        不解的谜团
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        To Be or Not To Be
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Shanghai</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        9
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ES6/">
+            <span class="level-start">
+                <span class="level-item">ES6</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Echarts/">
+            <span class="level-start">
+                <span class="level-item">Echarts</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hexo/">
+            <span class="level-start">
+                <span class="level-item">Hexo</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Markdown/">
+            <span class="level-start">
+                <span class="level-item">Markdown</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/">
+            <span class="level-start">
+                <span class="level-item">Vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/12/11/浅谈Vue路由/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/clouds.jpg" alt="浅谈Vue路由">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-11T02:30:52.000Z">2018-12-11</time></div>
+                    <a href="/2018/12/11/浅谈Vue路由/" class="has-link-black-ter is-size-6">浅谈Vue路由</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/提炼es6-4/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/desert.jpg" alt="提炼es6-4">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T06:13:29.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/提炼es6-4/" class="has-link-black-ter is-size-6">提炼es6-4</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/03/提炼es6-3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/night.jpg" alt="提炼es6-3">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-03T01:22:04.000Z">2018-12-03</time></div>
+                    <a href="/2018/12/03/提炼es6-3/" class="has-link-black-ter is-size-6">提炼es6-3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/29/提炼es6-2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/alley.jpg" alt="提炼es6-2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-29T01:39:32.000Z">2018-11-29</time></div>
+                    <a href="/2018/11/29/提炼es6-2/" class="has-link-black-ter is-size-6">提炼es6-2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/28/提炼es6-1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/umbrella.jpg" alt="提炼ES6(1)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-28T06:17:33.000Z">2018-11-28</time></div>
+                    <a href="/2018/11/28/提炼es6-1/" class="has-link-black-ter is-size-6">提炼ES6(1)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/12/11/浅谈Vue路由/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/clouds.jpg" alt="浅谈Vue路由">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-11T02:30:52.000Z">2018-12-11</time></div>
+                    <a href="/2018/12/11/浅谈Vue路由/" class="has-link-black-ter is-size-6">浅谈Vue路由</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/提炼es6-4/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/desert.jpg" alt="提炼es6-4">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T06:13:29.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/提炼es6-4/" class="has-link-black-ter is-size-6">提炼es6-4</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/03/提炼es6-3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/night.jpg" alt="提炼es6-3">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-03T01:22:04.000Z">2018-12-03</time></div>
+                    <a href="/2018/12/03/提炼es6-3/" class="has-link-black-ter is-size-6">提炼es6-3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/29/提炼es6-2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/alley.jpg" alt="提炼es6-2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-29T01:39:32.000Z">2018-11-29</time></div>
+                    <a href="/2018/11/29/提炼es6-2/" class="has-link-black-ter is-size-6">提炼es6-2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/28/提炼es6-1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/umbrella.jpg" alt="提炼ES6(1)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-28T06:17:33.000Z">2018-11-28</time></div>
+                    <a href="/2018/11/28/提炼es6-1/" class="has-link-black-ter is-size-6">提炼ES6(1)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="提炼es6-4" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 Xia Zhengming&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

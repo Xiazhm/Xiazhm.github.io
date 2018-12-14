@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>提炼es6-3 - To Be or To Be|Xia Zhengming`s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="一、数值的扩展1、二进制和八进制表示法前情回顾:es5中二进制的表示是0b(0B)，而八进制的表示是0o(0O)0,十六进制0x(0X)但是es6中明确规定了八进制要使用0o(不能使用0,两个看起来很像，虽然也不是很少用到)12Number(&amp;apos;0b111&amp;apos;) //7，字符串转换数值Number(&amp;apos;0o10&amp;apos;) //8，字符串转换数值 2、Number.isF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="提炼es6-3">
+<meta property="og:url" content="http://yoursite.com/2018/12/03/提炼es6-3/index.html">
+<meta property="og:site_name" content="To Be or To Be|Xia Zhengming`s Blog">
+<meta property="og:description" content="一、数值的扩展1、二进制和八进制表示法前情回顾:es5中二进制的表示是0b(0B)，而八进制的表示是0o(0O)0,十六进制0x(0X)但是es6中明确规定了八进制要使用0o(不能使用0,两个看起来很像，虽然也不是很少用到)12Number(&amp;apos;0b111&amp;apos;) //7，字符串转换数值Number(&amp;apos;0o10&amp;apos;) //8，字符串转换数值 2、Number.isF">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-04T06:12:11.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="提炼es6-3">
+<meta name="twitter:description" content="一、数值的扩展1、二进制和八进制表示法前情回顾:es5中二进制的表示是0b(0B)，而八进制的表示是0o(0O)0,十六进制0x(0X)但是es6中明确规定了八进制要使用0o(不能使用0,两个看起来很像，虽然也不是很少用到)12Number(&amp;apos;0b111&amp;apos;) //7，字符串转换数值Number(&amp;apos;0o10&amp;apos;) //8，字符串转换数值 2、Number.isF">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="提炼es6-3" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/images/gallery/night.jpg" alt="提炼es6-3">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-12-03T01:22:04.000Z">2018-12-03</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    10 分钟 读完 (大约 1439 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                提炼es6-3
+            
+        </h1>
+        <div class="content">
+            <h2 id="一、数值的扩展"><a href="#一、数值的扩展" class="headerlink" title="一、数值的扩展"></a>一、数值的扩展</h2><h3 id="1、二进制和八进制表示法"><a href="#1、二进制和八进制表示法" class="headerlink" title="1、二进制和八进制表示法"></a>1、二进制和八进制表示法</h3><p>前情回顾:es5中二进制的表示是0b(0B)，而八进制的表示是0o(0O)0,十六进制0x(0X)<br>但是es6中明确规定了八进制要使用0o(不能使用0,两个看起来很像，虽然也不是很少用到)<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Number(&apos;0b111&apos;) //7，字符串转换数值</span><br><span class="line">Number(&apos;0o10&apos;) //8，字符串转换数值</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、Number-isFinite-，Number-isNaN-，Number-isInteger"><a href="#2、Number-isFinite-，Number-isNaN-，Number-isInteger" class="headerlink" title="2、Number.isFinite()，Number.isNaN()，Number.isInteger()"></a>2、Number.isFinite()，Number.isNaN()，Number.isInteger()</h3><p>Number.isFinite()用来检查一个数值是否为有限的<br>Number.isNaN()用来检查一个数值是否为NaN</p>
+<p>同时改动parseInt()和parseFloat()，es6将它们全部移植到Number对象上，其他保持不变，其目的是逐步减少全局性方法，使得语言逐步模块化。<br>Number.parseInt()<br>Number.parseFloat()</p>
+<p>Number.isInteger()用来判断一个数值是否为整数(区别于浮点数)</p>
+<h3 id="3、新添Math功能"><a href="#3、新添Math功能" class="headerlink" title="3、新添Math功能"></a>3、新添Math功能</h3><p>Math.trunc方法用于去除一个数的小数部分，返回整数部分<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Math.trunc(-4.9) //-4</span><br><span class="line">Math.trunc(&apos;123.456&apos;) //123</span><br><span class="line">Math.trunc(true) //1</span><br><span class="line">Math.trunc(null) //0</span><br><span class="line">Math.trunc(&apos;foo&apos;) //NaN</span><br><span class="line"></span><br><span class="line">Math.trunc = Math.trunc||function (x) &#123;</span><br><span class="line">    return x &lt; 0 ? Math.ceil(x) : Math.floor(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Math.sign方法用于判断一个数是正数，负数，0。对于非数值会先将其转换为数值。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Math.sign(5) // +1</span><br><span class="line">Math.sign(-5) // -1</span><br><span class="line">Math.sign(0) // 0</span><br><span class="line">Math.sign(NaN) // NaN</span><br><span class="line">Math.sign(true) // +1</span><br><span class="line">Math.sign(&apos;9&apos;) // +1</span><br><span class="line"></span><br><span class="line">Math.sign = Math.sign || function(x) &#123;</span><br><span class="line">    x = +x</span><br><span class="line">    if(x === 0|| isNaN(x))&#123;</span><br><span class="line">        return x</span><br><span class="line">    &#125;</span><br><span class="line">    return x &gt; 0 ? 1 : -1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、指数运算符"><a href="#4、指数运算符" class="headerlink" title="4、指数运算符(**)"></a>4、指数运算符(**)</h3><p>2 ** 2 =&gt; 4<br>2 ** 3 ** 2 =&gt; 2 ** (3 ** 2) =&gt; 512<br>特点是右结合</p>
+<h2 id="二、函数的扩展"><a href="#二、函数的扩展" class="headerlink" title="二、函数的扩展"></a>二、函数的扩展</h2><h3 id="1、函数参数的默认值"><a href="#1、函数参数的默认值" class="headerlink" title="1、函数参数的默认值"></a>1、函数参数的默认值</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">es5函数默认值</span><br><span class="line">function fn1(x,y)&#123;</span><br><span class="line">    y = y || &apos;world&apos;</span><br><span class="line">    return x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">es6函数默认值</span><br><span class="line">function fn2(x,y = &apos;world&apos;)&#123;</span><br><span class="line">    return x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、函数参数的默认值与解构赋值结合使用"><a href="#2、函数参数的默认值与解构赋值结合使用" class="headerlink" title="2、函数参数的默认值与解构赋值结合使用"></a>2、函数参数的默认值与解构赋值结合使用</h3><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function foo(&#123;x,y = 5&#125;)&#123;</span><br><span class="line">    console.log(x,y)</span><br><span class="line">&#125;</span><br><span class="line">foo(&#123;x : 1 , y : 2&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function fetch(url,&#123;body = &apos;&apos;,method = &apos;GET&apos;,header = &#123;&#125;&#125;)&#123;</span><br><span class="line">    console.log(method)</span><br><span class="line">&#125;</span><br><span class="line">fetch(&apos;www.baidu.com&apos;,&#123;&#125;) //console.log(&apos;GET&apos;)</span><br><span class="line">fetch(&apos;www.baidu.com&apos;) //报错，这种情况下第二个对象参数不能省略</span><br><span class="line"></span><br><span class="line">function fetch(url,&#123;...&#125; = &#123;&#125;)&#123;</span><br><span class="line">    console.log(method)</span><br><span class="line">&#125;</span><br><span class="line">fetch(&apos;www.qq.com&apos;) //可以，有默认值</span><br></pre></td></tr></table></figure>
+<p><strong>参数默认值的位置</strong><br>如果是在末尾，那么可以省略，比如<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function f(x,y=1)&#123;</span><br><span class="line">    console.log(y)</span><br><span class="line">&#125;</span><br><span class="line">f(2)</span><br></pre></td></tr></table></figure></p>
+<p>但是如果不是在末尾，那么这个参数是没法省略的<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function f1(x=1,y=&apos;asdf&apos;,z)&#123;</span><br><span class="line">    console.log(z)</span><br><span class="line">&#125;</span><br><span class="line">f1(2,,89) //报错</span><br><span class="line">f1(,&apos;string&apos;,90) //报错</span><br><span class="line">f1(undefined,undefined,213) //213</span><br></pre></td></tr></table></figure></p>
+<p><strong>函数的length属性</strong><br>指定默认值后，函数的length属性，将返回没有指定默认值的参数个数，rest参数也不再计入length属性，<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(function (a,b,c)&#123;&#125;).length // 3</span><br><span class="line">(function (a,b,c=3)&#123;&#125;).length //2</span><br></pre></td></tr></table></figure></p>
+<p><strong>作用域</strong><br>一旦设置了参数的默认值，函数进行声明初始化时，参数会形成一个单独的作用域。等到初始化结束，这个作用域会消失。这种语法行为在不设置参数默认值时，是不会出现的。关键在于设置默认值前有没有给被设置的默认值声明<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let x = 1</span><br><span class="line">function f(x,y=x)&#123;</span><br><span class="line">    console.log(y)</span><br><span class="line">&#125;</span><br><span class="line">f(2) //2</span><br><span class="line"></span><br><span class="line">let z = 2</span><br><span class="line">function f1(y=z)&#123;</span><br><span class="line">    let z = 3</span><br><span class="line">    console.log(y)</span><br><span class="line">&#125;</span><br><span class="line">f() // 2</span><br></pre></td></tr></table></figure></p>
+<p>最后测试一下，搞懂这个，函数作用域这里理解就差不多了<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var x = 1</span><br><span class="line">function f(x,y=function f2()&#123;x = 2&#125;)&#123;</span><br><span class="line">    var x = 3</span><br><span class="line">    y()</span><br><span class="line">    console.log(x)</span><br><span class="line">&#125;</span><br><span class="line">求f()和x</span><br></pre></td></tr></table></figure></p>
+<p><strong>rest参数</strong><br>注意：rest参数之后不能再有其他参数，否则会报错<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function push(array,...items)&#123;</span><br><span class="line">    items.forEach(function(item)&#123;</span><br><span class="line">        array.push(item)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、箭头函数（重点）"><a href="#3、箭头函数（重点）" class="headerlink" title="3、箭头函数（重点）"></a>3、箭头函数（重点）</h3><p>单语句函数 var f = v =&gt; v<br>等同于 var f = function (v){<br>    return v<br>}</p>
+<p>var f = () =&gt; 5<br>var f = (num1,num2) =&gt; num1 + num2</p>
+<p>如果箭头函数的代码块多于一条语句，就使用大括号将它们括起来，并且使用return语句返回<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var f = () =&gt; &#123;</span><br><span class="line">    let i = 1</span><br><span class="line">    return i</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>箭头函数的一个用处是简化回调函数<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//普通回调</span><br><span class="line">[1,2,3].map(function () &#123;</span><br><span class="line">    return x*x</span><br><span class="line">&#125;)</span><br><span class="line">//箭头函数</span><br><span class="line">[1,2,3].map(x =&gt; x*x)</span><br></pre></td></tr></table></figure></p>
+<p>注意点：（1）函数体内的this对象就是使用时所在的对象，而不是定义时所在的对象<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">        console.log(&apos;id:&apos;,this.id)</span><br><span class="line">    &#125;,1000)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var id = 21</span><br><span class="line"></span><br><span class="line">foo.call(&#123;id:42&#125;) // 42</span><br><span class="line">foo() // 21</span><br></pre></td></tr></table></figure></p>
+<p>我的理解是foo.call(obj),相当于obj.foo(),而根据箭头函数的原则，this指向使用时所在的对象，所以this指向obj。而foo(),相当于window.foo()，this指向window</p>
+<p>箭头函数可以让this指向固定化，这种特性很有利于封装回调函数。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var handler = &#123;</span><br><span class="line">    id:&apos;123456&apos;,</span><br><span class="line">    init:function() &#123;</span><br><span class="line">        document.addEventListener(&apos;click&apos;,</span><br><span class="line">            event =&gt; this.doSomething(event.type),false)</span><br><span class="line">    &#125;,</span><br><span class="line">    doSomething:function(type) &#123;</span><br><span class="line">        console.log(this.id)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>init方法中，使用了箭头函数，这导致这个箭头函数里面的this，总是指向handler对象。否则，this.doSomething会报错，因为此时this指向document对象。</p>
+<p>this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。从下面例子就可以看出。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//ES6</span><br><span class="line">function foo() &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">        console.log(&apos;id&apos;,this.id)</span><br><span class="line">    &#125;,1000)</span><br><span class="line">&#125;</span><br><span class="line">//ES5</span><br><span class="line">function foo() &#123;</span><br><span class="line">    var _this = this</span><br><span class="line"></span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        console.log(&apos;id&apos;,_this.id)</span><br><span class="line">    &#125;,1000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>不仅是this，arguments、super、new。target在箭头函数中也是不存在的，指向外层函数的对应变量。</p>
+<p><strong>不适用场合</strong><br>虽然箭头函数写法简介，但是由于它使得this从“动态”变成“静态”，也有不适合的场合</p>
+<p>第一个是<em>定义函数</em>的方法<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const cat = &#123;</span><br><span class="line">    lives:9,</span><br><span class="line">    jump: () =&gt; &#123;</span><br><span class="line">        this.lives--</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果是普通函数，该方法内部的this指向cat，但是箭头函数使得this指向全局对象</p>
+<p>第二个是<em>需要动态this</em>的时候<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var btn = document.getElementById(&apos;press&apos;)</span><br><span class="line">btn.addEventListener(&apos;click&apos;,() =&gt; &#123;</span><br><span class="line">    this.classList.toggle(&apos;on&apos;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>如果是普通函数，this就会动态指向被点击的按钮对象，但是箭头函数this指向全局对象</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/12/04/提炼es6-4/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">提炼es6-4</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/11/29/提炼es6-2/">
+                <span class="level-item">提炼es6-2</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/rocket.svg" alt="不解的谜团">
+                    
+                    <p class="is-size-4 is-block">
+                        不解的谜团
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        To Be or Not To Be
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Shanghai</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        9
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/ppoffice">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/ES6/">
+            <span class="level-start">
+                <span class="level-item">ES6</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Echarts/">
+            <span class="level-start">
+                <span class="level-item">Echarts</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Hexo/">
+            <span class="level-start">
+                <span class="level-item">Hexo</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Markdown/">
+            <span class="level-start">
+                <span class="level-item">Markdown</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Vue/">
+            <span class="level-start">
+                <span class="level-item">Vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/随笔/">
+            <span class="level-start">
+                <span class="level-item">随笔</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/12/11/浅谈Vue路由/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/clouds.jpg" alt="浅谈Vue路由">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-11T02:30:52.000Z">2018-12-11</time></div>
+                    <a href="/2018/12/11/浅谈Vue路由/" class="has-link-black-ter is-size-6">浅谈Vue路由</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/提炼es6-4/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/desert.jpg" alt="提炼es6-4">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T06:13:29.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/提炼es6-4/" class="has-link-black-ter is-size-6">提炼es6-4</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/03/提炼es6-3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/night.jpg" alt="提炼es6-3">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-03T01:22:04.000Z">2018-12-03</time></div>
+                    <a href="/2018/12/03/提炼es6-3/" class="has-link-black-ter is-size-6">提炼es6-3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/29/提炼es6-2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/alley.jpg" alt="提炼es6-2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-29T01:39:32.000Z">2018-11-29</time></div>
+                    <a href="/2018/11/29/提炼es6-2/" class="has-link-black-ter is-size-6">提炼es6-2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/28/提炼es6-1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/umbrella.jpg" alt="提炼ES6(1)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-28T06:17:33.000Z">2018-11-28</time></div>
+                    <a href="/2018/11/28/提炼es6-1/" class="has-link-black-ter is-size-6">提炼ES6(1)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+            </ul>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/12/11/浅谈Vue路由/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/clouds.jpg" alt="浅谈Vue路由">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-11T02:30:52.000Z">2018-12-11</time></div>
+                    <a href="/2018/12/11/浅谈Vue路由/" class="has-link-black-ter is-size-6">浅谈Vue路由</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Vue/">Vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/04/提炼es6-4/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/desert.jpg" alt="提炼es6-4">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-04T06:13:29.000Z">2018-12-04</time></div>
+                    <a href="/2018/12/04/提炼es6-4/" class="has-link-black-ter is-size-6">提炼es6-4</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/12/03/提炼es6-3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/night.jpg" alt="提炼es6-3">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-12-03T01:22:04.000Z">2018-12-03</time></div>
+                    <a href="/2018/12/03/提炼es6-3/" class="has-link-black-ter is-size-6">提炼es6-3</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/29/提炼es6-2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/alley.jpg" alt="提炼es6-2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-29T01:39:32.000Z">2018-11-29</time></div>
+                    <a href="/2018/11/29/提炼es6-2/" class="has-link-black-ter is-size-6">提炼es6-2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2018/11/28/提炼es6-1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/gallery/umbrella.jpg" alt="提炼ES6(1)">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-11-28T06:17:33.000Z">2018-11-28</time></div>
+                    <a href="/2018/11/28/提炼es6-1/" class="has-link-black-ter is-size-6">提炼ES6(1)</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/ES6/">ES6</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <ul class="menu-list">
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="提炼es6-3" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 Xia Zhengming&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
